@@ -1,0 +1,24 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{yml,yaml,json,jsonc}]
+indent_size = 2
+
+[*.yaml.tmpl]
+indent_size = 2
+
+[home/dot_cookiecutterrc.tmpl]
+indent_size = 2
+
+[{*.markdown,*.md,*.mdown,*.mkd,*.mkdn,*.txt}] # https://superuser.com/questions/249436/file-extension-for-markdown-files/285878#285878
+trim_trailing_whitespace = false               # https://stackoverflow.com/editing-help#linebreaks

@@ -1,0 +1,7 @@
+# Environments
+.env
+
+# Reports
+reports/
+
+!scripts/

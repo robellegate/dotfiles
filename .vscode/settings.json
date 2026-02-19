@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "**/*.yaml*": "yaml",
+    "**/private_dot_ssh/config": "ssh_config",
+    "*.aliasrc": "shellscript",
+    "*cookiecutterrc*": "yaml",
+    "*gitaliases*": "properties",
+    "*gitconfig*": "properties",
+    "*gitignore*": "ignore",
+    "*npmrc": "properties",
+    "*terraformrc*": "hcl",
+    "*vimrc": "vimrc",
+    "*z*.tmpl": "shellscript",
+    "*zprofile*": "shellscript",
+    "*zshrc*": "shellscript"
+  },
+  "yaml.validate": false
+}
