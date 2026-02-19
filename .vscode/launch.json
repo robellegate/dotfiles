@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Benchmark ZSH",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/benchmark-zsh.sh",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "runtimeExecutable": "/bin/zsh",
+      "args": ["-c", "${workspaceFolder}/scripts/benchmark-zsh.sh"],
+      "env": {
+        "SHELL": "/bin/zsh"
+      }
+    },
+    {
+      "name": "Profile ZSH Initialization",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "runtimeExecutable": "/bin/zsh",
+      "args": ["-i", "-c", "exit"],
+      "env": {
+        "ZPROF": "true",
+        "SHELL": "/bin/zsh"
+      }
+    }
+  ]
+}
