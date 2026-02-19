@@ -1,0 +1,16 @@
+#################
+# cargo aliases #
+#################
+
+# Alias: [c]argo [i]nstall --[l]ist
+# Description: View the list of installed Cargo packages
+alias cil='cargo install --list'
+
+# Alias: [c]argo [i]nstall-[up]date --[a]ll
+# Description: Update installed Cargo packages
+alias ciupa='cargo install-update --all'
+
+# Alias: [c]argo [i]nstall-[up]date --[l]ist
+#Description: List and check if any installed Cargo packages need an update
+alias ciupl='cargo install-update --list'
+

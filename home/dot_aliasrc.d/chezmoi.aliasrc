@@ -1,0 +1,101 @@
+###################
+# chezmoi aliases #
+###################
+
+# Alias: [chez]moi [ap]ply
+# Description: Apply changes to the target
+alias chezap='chezmoi apply'
+
+# Alias: [chez]moi [ap]ply --dry-run --verbose
+# Description: Dry run apply changes
+alias chezapdry='chezmoi apply --dry-run --verbose'
+
+# Alias: [chez]moi [ed]it
+# Description: Edit the source state of targets
+alias chezed='chezmoi edit'
+
+# Alias: [chez]moi [ed]it --[ap]ply
+# Description: Edit the source state of a target and apply it
+alias chezedap='chezmoi edit --apply'
+
+# Alias: [chez]moi [cd]
+# Description: Launch a shell in the source directory
+alias chezcd='chezmoi cd'
+
+# Alias: [chez]moi [c]hattr [t]emplate
+# Description: Change the template type of a target
+alias chezcht='chezmoi chattr template'
+
+# Alias: [chez]moi [e]xecute-[t]emplate
+# Description: Execute a template and print the result to stdout
+alias chezet='chezmoi execute-template'
+
+# Function: chezmoi-unmanaged-aliasrcs
+# Description: List unmanaged .aliasrc files in the target directory
+# Usage: chezmoi-unmanaged-aliasrcs
+chezmoi-unmanaged-aliasrcs() {
+    local unmanaged
+    unmanaged="$(chezmoi unmanaged ~/.aliasrc.d)"
+    if [[ -n "$unmanaged" ]]; then
+        basename "$unmanaged" .aliasrc
+    fi
+}
+
+# Function: chezmoi-add-aliasrcs
+# Description: Add unmanaged .aliasrc files to Chezmoi source state
+# Usage: chezmoi-add-aliasrcs
+chezmoi-add-aliasrcs() {
+    local selected
+    selected="$(chezmoi-unmanaged-aliasrcs | fzf)"
+    if [[ -n "$selected" ]]; then
+        chezmoi add -- "~/.aliasrc.d/${selected}.aliasrc"
+    else
+        echo "No selection made."
+    fi
+}
+
+# Function: chezmoi-list-aliasrcs
+# Description: List available .aliasrc files in the Chezmoi source directory
+# Usage: chezmoi-list-aliasrcs
+chezmoi-list-aliasrcs() {
+    ls "$(chezmoi source-path ~/.aliasrc.d)" | grep -E 'aliasrc$' | sed 's/.aliasrc$//'
+}
+
+# Function: chezmoi-edit-aliasrcs
+# Description: Edit a Chezmoi-managed .aliasrc file
+# Usage: chezmoi-edit-aliasrcs
+chezmoi-edit-aliasrcs() {
+    local selected
+    selected="$(chezmoi-list-aliasrcs | fzf)"
+    if [[ -n "$selected" ]]; then
+        chezmoi edit -- "~/.aliasrc.d/${selected}.aliasrc"
+    else
+        echo "No selection made."
+    fi
+}
+
+# Function: chezmoi-apply-aliasrcs
+# Description: Apply the selected .aliasrc file using fzf
+# Usage: chezmoi-apply-aliasrcs
+chezmoi-apply-aliasrcs() {
+    local selected
+    selected="$(chezmoi-list-aliasrcs | fzf)"
+    if [[ -n "$selected" ]]; then
+        chezmoi apply -- "~/.aliasrc.d/${selected}.aliasrc"
+    else
+        echo "No selection made."
+    fi
+}
+
+# Function: chezmoi-edit-apply-aliasrcs
+# Description: Edit and apply the selected .aliasrc file
+# Usage: chezmoi-edit-apply-aliasrcs
+chezmoi-edit-apply-aliasrcs() {
+    local selected
+    selected="$(chezmoi-list-aliasrcs | fzf)"
+    if [[ -n "$selected" ]]; then
+        chezmoi edit --apply -- "~/.aliasrc.d/${selected}.aliasrc"
+    else
+        echo "No selection made."
+    fi
+}

@@ -1,0 +1,21 @@
+{{- $gitIgnoreFiles := glob (joinPath .chezmoi.homeDir ".gitignore.d/*") -}}
+
+{{- range $index, $filename := $gitIgnoreFiles -}}
+    {{- $baseFilename := $filename | base -}}
+    {{- $headerLength := add 6 (len $baseFilename) | int -}}
+
+    {{- /* Print header */ -}}
+    {{- printf "%s\n" (repeat $headerLength "#") }}
+    {{- printf "# %s #\n" $baseFilename }}
+    {{- printf "%s\n" (repeat $headerLength "#") }}
+    {{- println }}
+
+    {{- /* Include file */ -}}
+    {{- include $filename }}
+    {{- println -}}
+
+    {{- /* Print separator */ -}}
+    {{- if ne $index (sub (len $gitIgnoreFiles) 1) -}}
+        {{- println }}
+    {{- end -}}
+{{- end -}}

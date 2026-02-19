@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# kitty.aliasrc
+#
+
+# kitty +kitten [clipboard]
+# Read/write to system clipboard
+alias clipboard='kitty +kitten clipboard'
+
+# kitty +kitten [icat]
+# Display images in the terminal
+alias icat='kitty +kitten icat --align=left'
+
+# kitty +kitten [ssh]
+# Automatic shell integration, file transfer and reuse of connections via ssh wrapper
+alias ssh='kitty +kitten ssh'
+

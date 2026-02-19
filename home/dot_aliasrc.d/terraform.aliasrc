@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# terraform.aliasrc
+# Aliases for Terraform
+
+# Alias: [t]erra[f]orm
+# Description: Shorten the 'terraform' command
+alias tf='terraform'
+
+# Alias: [t]erra[f]orm [fmt] -recursive
+# Description: Format all Terraform configuration files in the current directory
+alias tffmt='terraform fmt -recursive'

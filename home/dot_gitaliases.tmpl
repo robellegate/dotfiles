@@ -1,0 +1,84 @@
+[alias]
+    diff = diff --word-diff
+
+    # Human Aliases
+    unstage = reset -q HEAD --
+    discard = checkout --
+    uncommit = reset --mixed HEAD~
+
+    # Fixup staged changes to specified commit
+    fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
+
+    # Remove changes
+    scraplastcommit = reset --hard HEAD^
+
+    # Keep your changes
+    keepmychanges = reset --soft HEAD^
+
+    # Generate a changeset to reverse a previous commit
+    reverselastcommit = revert HEAD
+    nevermind = !git reset --hard HEAD && git clean -d -f
+    graph = log --graph -10 --branches --remotes --tags --format=format:'%Cgreen%h %Creset● %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+    precommit = diff --cached --diff-algorithm=minimal -w
+
+    # List commits in short form, with colors and branch/tag annotations
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate
+
+    # List commits showing changed files
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --numstat
+
+    # List with no colors if you need to chain the output with Unix pipes
+    lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
+    # List commits in one line showing dates
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --date=short
+
+    # List commits with default for short git log
+    le = log --oneline --decorate
+
+    # See all the commits related to a file, with the diff of the changes
+    filelog = log -u
+    fl = log -u
+
+    # Check what was in the last commit
+    dl = "!git ll -1"
+
+    # Show a diff last commit
+    dlc = diff --cached HEAD^
+
+    # Diff uncommitted changes
+    diffunc = diff --cached
+
+    # Show content (full diff) of a commit given a revision
+    dr = "!f() { git diff "$1"^.."$1"; }; f"
+    lc = "!f() { git ll "$1"^.."$1"; }; f"
+    diffr = "!f() { git diff "$1"^.."$1"; }; f"
+
+    # Find a file path in the repository
+    f = "!git ls-files | grep -i"
+
+    # Search/grep your entire repository for a string
+    grep = grep -Ii
+    gr = grep -Ii
+
+    # Grep from root folder
+    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+    # List all Aliases, and these comments  //  la = "!git config -l | grep alias | cut -c 7-"
+    aliases = "!cat ~/.gitaliases | sed -n -e '/# Human Aliases/,$p' | grep '^\t\\|\\#\\|\\s'"
+    la = aliases
+
+    # List all Aliases, and use ripgrep to search through them
+    aliasrg = "!git aliases 2>/dev/null | rg"
+
+    # Show last tag
+    lasttag = describe --tags --abbrev=0
+    lt = describe --tags --abbrev=0
+
+    # Show recent branches
+    short-recent = "for-each-ref --count=25 --sort=committerdate refs/heads/ --format='%(refname:short)'"
+
+    {{ if lookPath "fzf" -}}
+    # Fuzzy add using fzf
+    fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+    {{ end -}}

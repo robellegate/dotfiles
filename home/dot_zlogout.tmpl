@@ -1,0 +1,18 @@
+# ~/.zlogout
+# ──────────────────────────────────────────────
+# Sourced when a login shell exits.
+# Use for cleanup:
+#   • Stop agents
+#   • Remove temp files
+#   • Write session logs
+# Rarely used; keep minimal.
+
+# prefer templating to scope platform-specific cleanup
+# Example: remove a per-session guard file created in ~/.zprofile (macOS/Linux)
+_once="${TMPDIR:-/tmp}/zprofile.once.$UID"
+[[ -f "$_once" ]] && rm -f "$_once"
+
+{{ if and (eq .chezmoi.os "linux") (lookPath "systemctl") -}}
+# example: stop a user service only where it exists
+# systemctl --user stop my-session-timer.service 2>/dev/null || true
+{{ end -}}

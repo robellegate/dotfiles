@@ -1,0 +1,12 @@
+{{ $original := include "/usr/share/applications/google-chrome.desktop" }}
+{{ $currentSection := "" }}
+{{ range $line := split "\n" $original }}
+  {{ if hasPrefix "[" $line }}
+    {{ $currentSection = $line }}
+  {{ end }}
+  {{ if or (and (eq $currentSection "[Desktop Entry]") (hasPrefix $line "Exec=/usr/bin/google-chrome-stable")) (and (eq $currentSection "[Desktop Action new-window]") (hasPrefix $line "Exec=/usr/bin/google-chrome-stable")) }}
+    Exec=/usr/bin/google-chrome-stable --enable-features=WebUIDarkMode --force-dark-mode %U
+  {{ else }}
+    {{ $line }}
+  {{ end }}
+{{ end }}

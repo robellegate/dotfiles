@@ -1,0 +1,17 @@
+################
+# tree aliases #
+################
+
+alias treec='tree -C' # Colorize the output
+alias treea='tree -a' # Show hidden files
+alias treed='tree -d' # Show directories only
+alias treeif='tree -i -f' # Show full path without indintation
+
+# Alias: [t]ree --[a]ll --[I]gnore .[g]it
+# Description: Show all files but ignore the .git directory
+alias taig='tree -a -I ".git"'
+
+# Alias: [t]ree --[a]ll --[I]gnore .[g]it | [c]lipboard
+# Description: Show all files but ignore the .git directory and copy the results
+# to the clipboard
+alias taigc='tree -a -I ".git" | clipboard'

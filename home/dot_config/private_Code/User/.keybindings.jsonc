@@ -1,0 +1,37 @@
+[
+  {
+    "key": "ctrl+shift+mediaplaypause",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "workbench.action.toggleScreencastMode",
+        {
+          "command": "toggle",
+          "args": {
+            "id": "screenshare",
+            "value": [
+              {
+                "editor.fontSize": 24
+              },
+              {
+                "editor.fontSize": ""
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "key": "ctrl+i",
+    "command": "composerMode.agent"
+},
+{
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+        "text": "\u001b\r"
+    },
+    "when": "terminalFocus"
+}
+]

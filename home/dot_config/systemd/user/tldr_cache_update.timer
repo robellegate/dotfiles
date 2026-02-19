@@ -1,0 +1,9 @@
+[Unit]
+Description=Runs tldr_cache_update.service daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

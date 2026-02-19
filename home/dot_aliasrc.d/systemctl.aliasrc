@@ -1,0 +1,6 @@
+#####################
+# systemctl aliases #
+#####################
+
+alias systemctlu='systemctl --user'
+

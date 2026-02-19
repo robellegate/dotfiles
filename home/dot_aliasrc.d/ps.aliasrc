@@ -1,0 +1,5 @@
+##############
+# ps aliases #
+##############
+
+alias psgr='ps aux | grep'  # List processes, with grep

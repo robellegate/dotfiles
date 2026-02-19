@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# nmap.aliasrc
+# Aliases for nmap
+
+# nmap command to check if ssh is open and not filtered
+alias nmapssh='nmap -p 22 --open --reason -Pn'

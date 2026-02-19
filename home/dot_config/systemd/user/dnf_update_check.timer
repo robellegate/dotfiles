@@ -1,0 +1,11 @@
+[Unit]
+Description=Runs dnf_update_check.service every ten minutes
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=20min
+Persistent=true
+
+
+[Install]
+WantedBy=timers.target

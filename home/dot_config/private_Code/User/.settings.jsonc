@@ -1,0 +1,111 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.formatOnType": false
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnType": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+  "audioCues.enabled": "on",
+  "bashIde.explainshellEndpoint": "http://localhost:5000",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.fontLigatures": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+  "explorer.fileNesting.enabled": true,
+  "extensions.ignoreRecommendations": false,
+  "files.associations": {
+    "*.json": "jsonc",
+    "LICENSE": "plaintext"
+  },
+  "files.autoSave": "afterDelay",
+  "git-graph.date.format": "ISO Date & Time",
+  "git-graph.repository.commits.fetchAvatars": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "python": true,
+    "yaml": true
+  },
+  "githubPullRequests.remotes": [
+    "old-upstream",
+    "origin",
+    "upstream"
+  ],
+  "gitlens.ai.experimental.openai.model": "gpt-4-1106-preview",
+  "gitlens.ai.experimental.provider": "openai",
+  "gitmoji.showEmojiCode": true,
+  "json.format.keepLines": false,
+  "notebook.consolidatedRunButton": true,
+  "notebook.output.scrolling": true,
+  "python.jediEnabled": false,
+  "redhat.telemetry.enabled": true,
+  "security.workspace.trust.startupPrompt": "always",
+  "shellformat.useEditorConfig": true,
+  "terminal.integrated.fontFamily": "'FiraCode Nerd Font Propo Ret','FiraCode Nerd Font Propo','Fira Code Retina'",
+  "vsicons.dontShowNewVersionMessage": true,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb",
+    "*.pdf": "pdf.preview"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "yaml.format.enable": true,
+  "scm.alwaysShowActions": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "sqltools.useNodeRuntime": true,
+  "python.createEnvironment.trigger": "off",
+  "makefile.configureOnOpen": false,
+  "git.inputValidation": true,
+  "go.toolsManagement.autoUpdate": true,
+  "lldb.suppressUpdateNotifications": true,
+  "geminicodeassist.project": "",
+  "python.analysis.typeCheckingMode": "standard",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.minimap.enabled": false,
+  "explorer.confirmDragAndDrop": false
+}

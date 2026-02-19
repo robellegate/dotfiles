@@ -1,0 +1,8 @@
+#################
+# alias aliases #
+# // Meta af    #
+#################
+
+# Alias: [alias][rg] -i
+# Description: Case-Insensitive search for aliases
+alias aliasrg='alias | rg -i '

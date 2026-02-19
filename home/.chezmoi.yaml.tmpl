@@ -1,0 +1,16 @@
+{{- $name := (default "Robert Ellegate" (env "FULL_NAME")) -}}
+{{- $commonUsername := (default "robellegate" (env "COMMON_USERNAME")) -}}
+{{- $email := (default (printf "%s@gmail.com" $commonUsername) (env "PRIMARY_EMAIL")) -}}
+{{- $githubUsername := (default $commonUsername (env "GITHUB_USERNAME")) -}}
+{{- $gmailAddress := (default $email (env "GMAIL_ADDRESS")) -}}
+
+
+
+data:
+  user:
+    name: "{{ $name }}"
+    email: "{{ $email }}"
+    github:
+      username: "{{ $githubUsername }}"
+    gmail:
+      username: "{{ $gmailAddress }}"

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# kubectl.aliasrc
+# Aliases for kubectl
+
+alias k='kubectl'

@@ -1,0 +1,18 @@
+#####################
+# hyperfine aliases #
+#####################
+
+# Function: hyperfine-clear-cache
+# Description: Runs Hyperfine benchmarks with filesystem caches cleared before
+#              each timing run.
+# Usage: hyperfine-clear-cache [hyperfine options] 'command1' 'command2' ...
+hyperfine-clear-cache() {
+    # Flush filesystem buffers to ensure all pending writes are completed and do
+    # an initial cache clear.
+    sync && sudo /bin/sh -c 'echo 3 > /proc/sys/vm/drop_caches'
+
+    # Run Hyperfine with the --prepare option to clear caches before each run
+    hyperfine \
+        --prepare 'sync && sudo /bin/sh -c "echo 3 > /proc/sys/vm/drop_caches"' \
+        "$@"
+}

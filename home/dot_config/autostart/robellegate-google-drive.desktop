@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=robellegate-google-drive
+Exec=gio mount google-drive://robellegate@gmail.com

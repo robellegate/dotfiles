@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "3",
+        "type": "context-length",
+        "color": "brightBlack"
+      }
+    ],
+    [
+      {
+        "id": "fd7c22cb-5901-4928-a3c4-31c8caecbc97",
+        "type": "tokens-input",
+        "rawValue": false
+      },
+      {
+        "id": "ba583232-dd2d-4042-b5af-826fe6b628dc",
+        "type": "separator"
+      },
+      {
+        "id": "5ba74734-7efe-4bc7-b9fe-77908add85d3",
+        "type": "tokens-output",
+        "rawValue": false
+      },
+      {
+        "id": "5c7c6c15-ff0f-447c-a80d-c7ff8fe00b53",
+        "type": "separator"
+      },
+      {
+        "id": "b68d117c-c537-453a-8654-dee45b949a42",
+        "type": "tokens-cached",
+        "rawValue": false
+      },
+      {
+        "id": "99dff8c9-1b8a-4e69-b7a3-8f0bc2e776e3",
+        "type": "separator"
+      },
+      {
+        "id": "b6a1ae22-2704-4809-8b08-a5cc1f3d65ff",
+        "type": "tokens-total"
+      }
+    ],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}

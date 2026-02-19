@@ -1,0 +1,57 @@
+# ~/.zprofile
+# ──────────────────────────────────────────────
+# Sourced by login shells (e.g. macOS Terminal/iTerm
+# default, SSH, TTY). Runs before ~/.zshrc.
+# Good for "once per login" setup:
+#   • Homebrew eval "$(brew shellenv)" (templated)
+#   • Agent startup (ssh-agent, gpg-agent)
+#   • Env vars used across interactive sessions
+# Watch out: on macOS every new window/tab is a login
+# shell, so heavy work still repeats.
+
+{{/* Source Homebrew's shell environment */}}
+{{- if eq .chezmoi.os "darwin" -}}
+# macOS Homebrew path discovery (templated)
+  {{- if stat "/opt/homebrew/bin/brew" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export BREW_PREFIX="/opt/homebrew"
+  {{- else if stat "/usr/local/bin/brew" }}
+eval "$(/usr/local/bin/brew shellenv)"
+export BREW_PREFIX="/usr/local"
+  {{- end }}
+{{- else -}}
+{{/* (Linux) If you also use Homebrew on Linux, set BREW_PREFIX accordingly */}}
+{{- end -}}
+
+{{- if stat (print .chezmoi.homeDir "/.cargo/bin") -}}
+# Rust's Cargo bin path
+export PATH="{{ print .chezmoi.homeDir "/.cargo/bin" }}:$PATH"
+{{- end -}}
+
+{{- $gobin := (print (or (env "GOPATH") (print .chezmoi.homeDir "/go")) "/bin") }}
+{{- if stat $gobin }}
+# Go bin path
+export GOPATH="{{ or (env "GOPATH") (print .chezmoi.homeDir "/go") }}"
+export PATH="{{ $gobin }}:$PATH"
+{{- end }}
+
+{{- if lookPath "orbiter" }}
+export ORBITER_CONFIG="$HOME/.config/orbiter/config.yaml"
+{{- end }}
+
+# avoid repeating heavy work for every new login shell (macOS opens login shells per window/tab)
+# Example: cheap guard to run a block once per session:
+_once="${TMPDIR:-/tmp}/zprofile.once.$UID"
+if [[ ! -f $_once ]]; then
+  : > "$_once"
+  # (do one-time-ish expensive work here, if any)
+fi
+
+# Agents you want once per login (ssh-agent/gpg-agent if you use them)
+# Exports you want in all interactive sessions (EDITOR, VISUAL), but not needed
+# in scripts
+{{ if and (eq .chezmoi.os "linux") (lookPath "systemctl") -}}
+export SYSTEMD_EDITOR=vim
+{{ end -}}
+export EDITOR=vim
+export VISUAL=vim

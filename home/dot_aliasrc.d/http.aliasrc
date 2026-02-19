@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# http.aliasrc
+# Aliases for HTTPie
+
+alias weather-gi='https -b "wttr.in/Grand+Island+New+York" u== F=='
+alias weather-gi0='https -b "wttr.in/Grand+Island+New+York" u== F== 0=='

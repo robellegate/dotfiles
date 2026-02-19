@@ -1,0 +1,23 @@
+{{ if ne .chezmoi.os "darwin"}}
+.chezmoiscripts/darwin/*
+Brewfile
+{{ end }}
+
+{{ if ne .chezmoi.os "linux"}}
+.hushlogin
+.config/autostart/*
+.config/systemd/*
+.local/share/applications/
+{{ end }}
+
+{{/* Ignore changes to Claude's settings */}}
+.claude/.settings.json
+
+{{/* Ignore changes to ccstatusline's settings */}}
+.config/ccstatusline/.settings.json
+
+{{/* Ignore changes to Starship's configuration as parts of it will change when `starship toggle` is run */}}
+.config/starship/.config.toml
+
+{{/* Ignore changes to VS Code's settings */}}
+.config/Code/User/.settings.jsonc

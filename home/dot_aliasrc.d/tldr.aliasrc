@@ -1,0 +1,16 @@
+################
+# tldr aliases #
+################
+
+# Alias: [tldr] --[p]latform [l]inux
+# Description: Show Linux-specific TLDR pages
+alias tldrpl='tldr --platform linux'
+
+# Alias: [tldr] --[p]latform [m]acos
+# Description: Show macOS-specific TLDR pages
+alias tldrpm='tldr --platform macos'
+
+# Alias: [tldr] --[l]ist | [gr]ep -i
+# Description: List all TLDR pages and filter by keyword
+alias tldrlgr='tldr --list | grep -i '
+

@@ -1,0 +1,6 @@
+[Unit]
+Description=TLDR Cache Update Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/tldr --update

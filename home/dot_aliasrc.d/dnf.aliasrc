@@ -1,0 +1,60 @@
+###############
+# dnf aliases #
+###############
+
+# Alias: [d]nf [a]lias [l]ist
+# Description: Show dnf-alias entries
+alias dal='dnf alias list'
+
+# Alias: [d]nf [u]pdate[i]nfo
+# Description: Display package advisories
+alias dui='dnf ui'          # dnf-alias: ui='updateinfo --available'
+alias duis='dnf uis'        # dnf-alias: uis='updateinfo --available --security'
+alias duil='dnf ui --list'
+alias duisl='dnf uis --list'
+alias dcui='dnf cui'        # dnf-alias: cui='-C updateinfo --available'
+alias dcuil='dnf cui --list'
+
+# Alias: [d]nf [up]grade
+# Description: Upgrade packages
+alias dup='sudo dnf upgrade --assumeyes'
+alias dups='sudo dnf upgrade --security --assumeyes'
+
+# Alias: [d]nf [up]grade --[r]fresh
+# Description: Upgrade packages and refresh metadata
+alias dupr='sudo dnf upgrade --refresh --assumeyes'
+alias duprs='sudo dnf upgrade --refresh --security --assumeyes'
+
+# Alias: [d]nf [up]grade [n]eeds-[r]starting
+# Description: Upgrade packages and check if a reboot is necessary
+alias dupnr='sudo dnf upgrade --assumeyes && sudo needs-restarting'
+alias dupsnr='sudo dnf upgrade --security --assumeyes && sudo needs-restarting'
+
+alias dupnreboot='sudo dnf upgrade --assumeyes && sudo needs-restarting --reboothint || sudo shutdown --reboot +0'
+alias dupsnreboot='sudo dnf upgrade --security --assumeyes && sudo needs-restarting --reboothint || sudo shutdown --reboot +0'
+
+# Function: dnf-whatis
+# Description: Shows what package provides a command or file
+# Usage: dnf-whatis <command|file>
+dnf-whatis() {
+    if [ -z "$1" ]; then
+        echo "Usage: dnf-whatis <command|file>"
+        return 1
+    fi
+
+    local target="$1"
+
+    # Check if the target is a command
+    if cmd_path=$(command -v "$target" 2>/dev/null); then
+        echo "Searching for the package that provides the command: $cmd_path"
+        dnf provides "$cmd_path"
+        return
+    fi
+
+    # Check if the target is an existing file path
+    if [ -e "$target" ]; then
+        echo "Searching for the package that provides the file: $target"
+        dnf provides "$target"
+        return
+    fi
+}

@@ -1,0 +1,33 @@
+- id: mcfly
+  resource:
+    repo: cantino/mcfly
+    from_release: true
+  exec: '**/mcfly'
+  install:
+    zsh: '**/mcfly init zsh > init-mcfly.zsh'
+  src:
+    zsh: 'init-mcfly.zsh'
+
+- id: zoxide
+  resource:
+    repo: ajeetdsouza/zoxide
+    from_release: true
+  exec: '**/zoxide'
+  install:
+    zsh: '**/zoxide init zsh > init-zoxide.zsh'
+    bash: '**/zoxide init bash > init-zoxide.bash'
+    fish: '**/zoxide init fish > init-zoxide.fish'
+  src:
+    zsh: 'init-zoxide.zsh'
+
+# - id: starship
+#   resource:
+#     repo: starship/starship
+#     from_release: true
+#   exec: '**/starship'
+#   install:
+#     zsh: '**/starship init zsh > init-starship.zsh'
+#   src:
+#     zsh: 'init-starship.zsh'
+#   load: 'export STARSHIP_CONFIG=~/.config/starship/.config.toml'
+

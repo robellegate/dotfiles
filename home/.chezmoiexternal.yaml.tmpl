@@ -1,0 +1,76 @@
+{{/* FiraCode Nerd Fonts */}}
+{{- $firaCodeNerdFontsCanonicalURL := "https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Retina" -}}
+{{- $firaCodeNerdFontsRefreshPeriod := "168h" -}}
+.local/share/fonts/FiraCodeNerdFontPropo-Retina.ttf:
+  type: "file"
+  url: "{{ $firaCodeNerdFontsCanonicalURL }}/FiraCodeNerdFontPropo-Retina.ttf"
+  refreshPeriod: {{ $firaCodeNerdFontsRefreshPeriod }}
+.local/share/fonts/FiraCodeNerdFontMono-Retina.ttf:
+  type: "file"
+  url: "{{ $firaCodeNerdFontsCanonicalURL }}/FiraCodeNerdFontMono-Retina.ttf"
+  refreshPeriod: {{ $firaCodeNerdFontsRefreshPeriod }}
+
+{{/* .gitignore.d includes */}}
+{{- $gitIgnoreCanonicalURL := "https://raw.githubusercontent.com/github/gitignore/main" -}}
+{{- $gitIgnoreRefreshPeriod := "168h" -}}
+
+{{/* Global gitignores */}}
+.gitignore.d/Ansible.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/Ansible.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Archives.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/Archives.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Backup.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/Backup.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+{{- if eq .chezmoi.os "linux" }}
+.gitignore.d/Linux.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/Linux.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+{{- end }}
+{{- if eq .chezmoi.os "darwin" }}
+.gitignore.d/OSX.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/macOS.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+{{- end }}
+.gitignore.d/Vim.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/Vim.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/VisualStudioCode.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Global/VisualStudioCode.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+
+{{/* Language-specific gitignores */}}
+.gitignore.d/Node.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Node.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Packer.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Packer.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Python.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Python.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Ruby.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Ruby.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Rust.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Rust.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+.gitignore.d/Terraform.gitignore:
+    type: "file"
+    url: "{{ $gitIgnoreCanonicalURL }}/Terraform.gitignore"
+    refreshPeriod: {{ $gitIgnoreRefreshPeriod }}
+{{- "" -}}

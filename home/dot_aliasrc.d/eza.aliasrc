@@ -1,0 +1,7 @@
+###############
+# eza aliases #
+###############
+
+alias exa='eza'  # Allows eza completions to work for exa
+
+alias ezalrsm='eza --long --reverse --sort=modified'

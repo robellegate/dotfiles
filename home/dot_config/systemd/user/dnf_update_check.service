@@ -1,0 +1,6 @@
+[Unit]
+Description=DNF Update Check Service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash %h/Scripts/dnf_check_updates.sh

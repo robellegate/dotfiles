@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# keepassxc-cli.aliasrc
+#
+
+# [k]ee[p]assxc-cli
+# Shortened alias for the main executable
+alias kp='keepassxc-cli'
+
+# [k]ee[p]assxc-cli generate ... --length [8]
+# Generate an 8-digit hex number
+alias kp8="kp generate --numeric --upper --exclude $(echo -n {G..Z} | tr -d ' ') --length 8"
+
+# [k]ee[p]assxc-cli generate ... --length [26]
+# Generate a new strong password with 26 characters
+alias kp26='kp generate --upper --lower --numeric --special --length 26'
+

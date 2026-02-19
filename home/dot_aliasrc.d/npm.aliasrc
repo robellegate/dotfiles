@@ -1,0 +1,7 @@
+###############
+# npm aliases #
+###############
+
+# [n]pm [l]ist --[g]lobal - List installed NPM packages
+alias nlg='npm list --global --depth=0'
+

@@ -1,0 +1,161 @@
+# ~/.zshrc
+# ──────────────────────────────────────────────
+# Sourced by interactive shells (login + non-login).
+# This is the main file for interactive UX:
+#   • Aliases, options (setopt), keybindings
+#   • Completions (compinit), fpath tweaks
+#   • Prompt and plugin init (starship, zoxide, etc.)
+# Optimize:
+#   • Lazy-load or defer heavy plugins
+#   • Use compinit -C with cached .zcompdump
+#   • Profile with ZPROF=true zsh -i -c exit
+# DO NOT: put one-time login setup here (belongs in ~/.zprofile).
+
+# Enable shell tracing
+# set -x
+
+# Load zprof module for profiling when ZPROF is set to true
+if [[ "$ZPROF" == "true" ]]; then
+  zmodload zsh/zprof
+fi
+
+setopt autocd   # change directory just by typing its name
+setopt correct  # auto correct mistakes
+
+# History configurations
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTSIZE=10000
+SAVEHIST=20000
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history lists
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
+# force zsh to show the complete history
+alias history="history 0"
+
+bindkey -v
+
+# Add ~/.zfunc to fpath for user-specific functions and completions
+if [ -d "$HOME/.zfunc" ] && [[ ! "$fpath" == *"$HOME/.zfunc"* ]]; then
+  fpath=("$HOME/.zfunc" $fpath)
+fi
+
+# Enable completion features
+autoload bashcompinit && bashcompinit
+
+# cache completion to avoid recomputation each shell
+# (pin dumpfile in $ZDOTDIR to keep it predictable)
+autoload -Uz compinit
+compinit -C -d ${ZDOTDIR:-$HOME}/.zcompdump
+
+zstyle :compinstall filename '$HOME/.zshrc'
+
+complete -C '/usr/bin/aws_completer' aws
+
+# Set default editor to vim
+export SYSTEMD_EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+export EDITOR="$VISUAL"
+
+# Add colors for all prompt stuff
+zstyle ':completion:*' list-colors '=(#b) #([0-9]#) ([0-9a-f]#)*(cyan) normal black'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=long
+
+# Enable zsh-autosuggestions and zsh-syntax-highlighting if available
+{{- if stat "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" }}
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8,bold'
+{{- end }}
+
+{{- if stat "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" }}
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+{{- end }}
+
+# prefer `{{`{{ if stat "…" }}`}}` around file-based completions/sources
+# Example: only source if the file was found at apply-time:
+{{- if stat "/usr/share/google-cloud-sdk/completion.zsh.inc" }}
+source /usr/share/google-cloud-sdk/completion.zsh.inc
+{{- end }}
+
+precmd () {print -Pn "\e]0;%~\a"}
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+# export PATH=/home/robert/.local/bin:${PATH}
+
+#export OPENAI_KEY=$(keepassxc-cli show --attributes 'API Key' ${HOME}/Passwords.kdbx 'SSH and API Keys/OpenAI - API Key')
+#export OPENAI_KEY=\{\{- keepassxcAttribute 'SSH and API Keys//OpenAI - API Key' 'API Key' | quoted -\}\}
+
+# If $HOME/.aliasrc exists, source all .aliasrc files in it
+for file in $HOME/.aliasrc.d/*.aliasrc; do
+  if [ -f "$file" ] && source "$file"
+done
+
+# if [[ -d ~/Qt ]];then
+#     export PATH=$HOME/Qt:${PATH}
+# fi
+
+#if ! command -v fnm &>/dev/null; then
+#    export NVM_DIR="$HOME/.nvm"
+#    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#fi
+
+{{ if lookPath "mcfly" -}}
+  eval "$(mcfly init zsh)"
+{{ end -}}
+
+{{ if lookPath "starship" -}}
+  export STARSHIP_CONFIG="$HOME/.config/starship/.config.toml"
+eval "$(starship init zsh)"
+{{ end -}}
+
+{{ if lookPath "zoxide" -}}
+  eval "$(zoxide init zsh)"
+{{ end -}}
+
+# {{ if lookPath "chezmoi" -}}
+#   eval "$(chezmoi completion zsh)"
+# {{ end -}}
+
+{{ if lookPath "docker" -}}
+  eval "$(docker completion zsh)"
+{{ end -}}
+
+{{ if lookPath "fnm" -}}
+  eval "$(fnm env --use-on-cd --shell zsh)"
+{{ end -}}
+
+#eval "$(orbiter init zsh)"
+#. /home/robert/.orbiter/payloads/mcfly/current/init-mcfly.zsh
+#. /home/robert/.orbiter/payloads/zoxide/current/init-zoxide.zsh
+#. /home/robert/.orbiter/payloads/starship/current/init-starship.zsh
+
+{{ if lookPath "bartib" -}}
+# Set bartib activities file location
+export BARTIB_FILE="$HOME/.cache/activities.bartib"
+{{ end }}
+
+# lazy-load heavy plugins with function wrappers where possible
+# Example: defer `kubectl` completion until first use
+if (( $+commands[kubectl] )); then
+  __kube_loaded=0
+  kubectl() {
+    if (( ! __kube_loaded )); then
+      __kube_loaded=1
+      source <(command kubectl completion zsh)
+    fi
+    command kubectl "$@"
+  }
+fi
+
+# Generate profiling report if ZPROF is set to true
+if [[ "$ZPROF" == "true" ]]; then
+  zprof
+fi
+
+# Disable shell tracing
+# set +x

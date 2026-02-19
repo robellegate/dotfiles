@@ -1,0 +1,69 @@
+####################
+# starship aliases #
+####################
+
+# Alias: [star]ship [exp]lain
+# Description: Explains the currently showing Starship prompt modules
+alias starexp='starship explain'
+
+# Alias: [star]ship [tim]ings
+# Description: Prints timings of all active Starship modules
+alias startimes='starship timings'
+
+# Function: startoggle
+# Description: Toggles Starship custom module 'disabled' property
+# Usage: startoggle
+startoggle() {
+    # Paths
+    local starship_config="${XDG_CONFIG_HOME:-$HOME/.config}/starship/config.toml"
+
+    # Ensure Starship is installed
+    if ! command -v starship &>/dev/null; then
+        echo "Starship is not installed."
+        return 1
+    fi
+
+    # Cache the list of custom modules using bkt and modtime of the config file
+    local modules
+    modules=$(bkt --ttl=10m --modtime="$starship_config" -- \
+        starship print-config | awk -F'[][]' '/^\[custom\./ {gsub(/custom\./, "", $2); print $2}'
+    )
+
+    # If no module name is provided, let the user choose one
+    local module_name=$1
+    if [[ ! "$module_name" ]]; then
+        module_name=$(echo "$modules" | fzf --prompt="Select a custom module: ")
+    fi
+
+    # Verify the module exists
+    if ! echo "$modules" | grep -q "$module_name"; then
+        echo "Module '$module_name' does not exist."
+        return 1
+    fi
+
+    # Cache Starship configuration for quick state retrieval
+    local starship_config_cache
+    starship_config_cache=$(bkt --ttl=10m --modtime="$starship_config" -- \
+        starship print-config
+    )
+
+    # Get current 'disabled' state of the module
+    local current_state
+    current_state=$(echo "$starship_config_cache" | awk -v module="$module_name" '
+        $0 - "\\[custom\\." module "\\]" {found=1}
+        found && $1 == "disabled" {gsub(/^[^=]+=\s*/, ""); print; exit}
+    ' | tr -d ' ')
+
+    # Default to 'false' if 'disabled' property is not found
+    [[ -z "$current_state" ]] && current_state="false"
+
+    # Toggle the state
+    local new_state
+    [[ "$current_state" == "true" ]] && new_state="false" || new_state="true"
+
+    # Apply the change
+    starship config "custom.$module_name.disabled" "$new_state"
+
+    # Confirm the change
+    echo "Module '$module_name' is now $(if [[ "$new_state" == "true" ]]; then echo "disabled"; else echo "enabled"; fi)."
+}

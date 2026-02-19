@@ -1,0 +1,11 @@
+###############
+# zsh aliases #
+###############
+
+# Function: profzsh
+# Description: Profile ZSH startup time
+# Usage: profzsh
+profzsh() {
+    shell=${1:-$SHELL}
+    ZPROF=true $shell -i -c exit
+}

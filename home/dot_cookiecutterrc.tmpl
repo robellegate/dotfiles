@@ -1,0 +1,10 @@
+default_context:
+  name: {{ .user.name }}
+  full_name: {{ .user.name }}
+  email: {{ .user.email }}
+  github_username: {{ .user.github.username }}
+  #license: MIT
+
+abbreviations:
+  gh: https://github.com/{0}.git
+  gh-ssh: git@github.com:{0}.git

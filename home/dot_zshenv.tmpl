@@ -1,0 +1,23 @@
+# ~/.zshenv
+# ──────────────────────────────────────────────
+# Sourced by *every* zsh instance (login, non-login,
+# interactive, non-interactive, even scripts).
+# Keep this file **minimal**:
+#   • Set ZDOTDIR if relocating configs
+#   • Universal env like LANG/LC_ALL
+#   • Tiny PATH adjustments (only if critical)
+# DO NOT: load plugins, completions, or heavy logic—
+# it slows scripts and can break automation.
+
+# prefer baking values with chezmoi instead of computing at runtime
+# Example: set ZDOTDIR and locales without calling out to other programs
+export ZDOTDIR="${ZDOTDIR:-$HOME}"
+export LANG="{{ default "en_US.UTF-8" (env "LANG") }}"
+export LC_ALL="{{ default "en_US.UTF-8" (env "LC_ALL") }}"
+
+# avoid PATH churn here if possible; do it in ~/.zprofile for login shells
+# If absolutely necessary, keep it tiny and static:
+# export PATH="$HOME/.local/bin:$PATH"
+
+# avoid any `source`, `compinit`, or `eval` here — they slow scripts and
+# cronjobs

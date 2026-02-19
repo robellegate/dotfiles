@@ -1,0 +1,30 @@
+[user]
+	name = {{ .user.name }}
+	email = {{ .user.email }}
+
+[init]
+	defaultBranch = main
+
+[core]
+    excludesfile = ~/.gitignore
+
+[include]
+    path = ~/.gitaliases
+
+[fetch]
+    writeCommitGraph = true
+
+[push]
+    default = simple
+    followTags = true
+    autoSetupRemote = true
+
+[pull]
+    rebase = true
+
+[merge]
+    ff = only
+
+[filter "spacify"]
+    clean = expand --tabs=4 --initial
+    smudge = expand --tabs=4 --initial

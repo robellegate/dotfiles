@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# ls.aliasrc
+# Aliases for ls
+
+alias l.='ls -d .*'           # List hidden files
+alias ll='ls -l'              # List files in long format
+alias la='ls -A'              # List all files except . and ..
+alias lla='ls -la'            # List all files in long format
+alias l='ls -CF'              # List files in long format, with / appended to directories.
+alias llgr='ls -l | grep'     # List files in long format, with grep
+alias llagr='ls -la | grep'   # List all files in long format, with grep

@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# docker.aliasrc
+# Useful Docker aliases/functions
+
+# [d]ocker [fedora]
+# Create an ephemeral Fedora container
+alias dfedora='docker run --rm -it fedora /bin/bash'
+
+# [docker] run --rm docker/whale[say] cowsay
+# Display a whale saying something random
+alias dockersay='docker run --rm docker/whalesay cowsay'
+
+# Alias: [d]ocker [im]ages --format '{{.[R]epository}}:{{.[T]ag}}'
+# Description: List all container images in the format 'Repository:Tag'
+alias dimrt='docker images --format "{{.Repository}}:{{.Tag}}"'
+
+# Alias: [d]ocker [ps] --format '{{.[N]ames}}'
+# Description: List all running containers in the format 'Names'
+alias dpsn='docker ps --format "{{.Names}}"'
+
+# Alias: [d]ocker-[c]ompose [u]p
+# Description: Start all containers defined in the docker-compose.yml file
+alias dcu='docker-compose up'
+
+# Alias: [d]ocker-[c]ompose [d]own
+# Description: Stop all containers defined in the docker-compose.yml file
+alias dcd='docker-compose down'
+
+# Alias: [d]ocker-[c]ompose [r]un --rm
+# Description: Run a one-off command in a new container
+alias dcr='docker-compose run --rm'
+
+# Functino: docker-image-remove
+# Description: Remove a container image
+# Usage: docker-image-remove [image]
+function docker-image-remove() {
+    local selected
+    local image=$1
+
+    if [[ ! "$image" ]]; then
+        selected=$(dimrt | fzf)
+    else
+        selected=$(dimrt | grep $image | fzf)
+    fi
+
+    if [[ -n "$selected" ]]; then
+        docker image rm $selected
+    else
+        echo "No image selected."
+    fi
+}
+
+
+# [d]ocker [enter]
+# Enter a running container
+function denter() {
+ if [[ ! "$1" ]] ; then
+     echo "You must supply a container ID or name."
+     return 0
+ fi
+
+ docker exec -it $1 bash
+ return 0
+}
+

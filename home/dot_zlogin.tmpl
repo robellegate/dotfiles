@@ -1,0 +1,19 @@
+# ~/.zlogin
+# ──────────────────────────────────────────────
+# Sourced after ~/.zshrc in login shells only.
+# Rarely needed; good for "last-mile" login tasks:
+#   • Launching tmux
+#   • MOTD / welcome messages
+#   • One-off scripts at session start
+# Avoid putting environment or plugin setup here
+# (scripts and subshells won’t see it).
+
+{{ if lookPath "tldr" -}}
+# Refresh TLDR pages cache
+tldr --update &>/dev/null &
+{{ end -}}
+
+{{ if eq .chezmoi.os "linux" -}}
+# Print a quick MOTD only on Linux
+echo "Have a great session, $(whoami)!"
+{{ end -}}
