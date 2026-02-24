@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-Personal dotfiles for Robert Ellegate, managed with [chezmoi](https://chezmoi.io) (v2.33.0+). The repo manages ZSH shell configuration, git config, aliases, and tool configurations across Linux and macOS.
+Personal dotfiles for Robert Ellegate, managed with [chezmoi](https://chezmoi.io). The repo manages ZSH shell configuration, git config, aliases, and tool configurations across Linux and macOS.
 
 ## Key Architecture
 
@@ -73,6 +73,35 @@ VS Code: `Ctrl+Shift+B` runs the benchmark as the default build task.
 ```
 Requires: `git`, `rg`, `chezmoi`.
 
+### Run workflows locally with `act`
+```sh
+act -l                  # List all workflows and their event triggers
+act push                # Run push-triggered workflows (lint, spellcheck)
+act pull_request        # Run PR-triggered workflows
+act -j lint-markdown    # Run the markdown lint job only
+act -j spellcheck       # Run the spell check job only
+act -j check-links      # Run the link checker job only
+```
+Requires: Docker, [`act`](https://github.com/nektos/act).
+
+## GitHub Actions
+
+Workflows live in `.github/workflows/`. Each runs on `ubuntu-latest`.
+
+| File | Trigger | Tool | Config |
+|---|---|---|---|
+| `links.yml` | PR, daily schedule, manual | lychee | `lychee.toml` |
+| `markdownlint.yml` | Push, PR | markdownlint-cli2 | `.markdownlint-cli2.yaml` |
+| `spellcheck.yml` | Push, PR | cspell (incremental) | `.cspell.json` |
+| `dependabot.yml` | Weekly | GitHub Dependabot | `.github/dependabot.yml` |
+
+- **links.yml** — checks all hyperlinks; creates a GitHub Issue when broken links are found on
+  scheduled runs. The issue-creation step requires `GITHUB_TOKEN` and is skipped in local `act` runs.
+- **markdownlint.yml** — enforces Markdown style rules (120-char line limit, 4-space list indent).
+- **spellcheck.yml** — spell-checks only changed files on push/PR (`incremental_files_only: true`);
+  emits inline warnings without failing the build (`strict: false`).
+- **dependabot.yml** — weekly automated PRs to keep GitHub Actions versions up to date.
+
 ## File Organization
 
 - `home/dot_aliasrc.d/` — modular alias files, one per tool/category
@@ -85,8 +114,8 @@ Requires: `git`, `rg`, `chezmoi`.
 
 ## Conventions
 
-- Commit messages use emoji-prefixed conventional format (e.g., `✨ feat(scope): description`).
+- Commit messages use conventional format (e.g., `feat(scope): description`).
 - Files containing secrets use the `private_` prefix and are not committed in plaintext.
 - `.chezmoiignore.tmpl` excludes platform-inappropriate files and dynamically modified configs (starship, VS Code settings).
 - EditorConfig enforces 4-space indentation by default, 2-space for YAML/JSON/JSONC.
-- Markdown line length limit is 120 characters (`.markdownlint.yaml`).
+- Markdown line length limit is 120 characters (`.markdownlint-cli2.yaml`).
