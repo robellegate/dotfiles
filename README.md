@@ -6,6 +6,8 @@
 [![Markdown lint][markdownlint-image]][markdownlint-url]
 [![Spell check][spellcheck-image]][spellcheck-url]
 [![Dependabot][dependabot-image]][dependabot-url]
+[![Claude Code][claude-image]][claude-url]
+[![Claude Code Review][claude-review-image]][claude-review-url]
 
 [//]: # (Badge Links)
 
@@ -20,6 +22,12 @@
 
 [dependabot-image]: https://github.com/robellegate/dotfiles/actions/workflows/dependabot/dependabot-updates/badge.svg
 [dependabot-url]: https://github.com/robellegate/dotfiles/actions/workflows/dependabot/dependabot-updates
+
+[claude-image]: https://github.com/robellegate/dotfiles/actions/workflows/claude.yml/badge.svg
+[claude-url]: https://github.com/robellegate/dotfiles/actions/workflows/claude.yml
+
+[claude-review-image]: https://github.com/robellegate/dotfiles/actions/workflows/claude-code-review.yml/badge.svg
+[claude-review-url]: https://github.com/robellegate/dotfiles/actions/workflows/claude-code-review.yml
 
 Robert Ellegate's dotfiles, managed with [`chezmoi`](https://chezmoi.io) _/shay-mwah/_
 
@@ -126,12 +134,14 @@ To run the tests from the command line, execute the following script:
 
 ### Workflows
 
-| Workflow                                            | Trigger                    | Tool              |
-|-----------------------------------------------------|----------------------------|-------------------|
-| [Check hyperlinks](.github/workflows/links.yml)     | PR, daily schedule, manual | lychee            |
-| [Markdown lint](.github/workflows/markdownlint.yml) | Push, PR                   | markdownlint-cli2 |
-| [Spell check](.github/workflows/spellcheck.yml)     | Push, PR                   | cspell            |
-| [Dependabot](.github/dependabot.yml)                | Weekly                     | GitHub Dependabot |
+| Workflow                                                       | Trigger                       | Tool               |
+|----------------------------------------------------------------|-------------------------------|--------------------|
+| [Check hyperlinks](.github/workflows/links.yml)                | PR, daily schedule, manual    | lychee             |
+| [Markdown lint](.github/workflows/markdownlint.yml)            | Push, PR                      | markdownlint-cli2  |
+| [Spell check](.github/workflows/spellcheck.yml)                | Push, PR                      | cspell             |
+| [Dependabot](.github/dependabot.yml)                           | Weekly                        | GitHub Dependabot  |
+| [Claude Code](.github/workflows/claude.yml)                    | Issues, PR comments (@claude) | Claude Code Action |
+| [Claude Code Review](.github/workflows/claude-code-review.yml) | PR (opened/updated)           | Claude Code Action |
 
 Supporting config files: [`lychee.toml`](lychee.toml), [`.markdownlint-cli2.yaml`](.markdownlint-cli2.yaml),
 [`.cspell.json`](.cspell.json).

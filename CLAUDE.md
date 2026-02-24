@@ -93,7 +93,9 @@ Workflows live in `.github/workflows/`. Each runs on `ubuntu-latest`.
 | `links.yml` | PR, daily schedule, manual | lychee | `lychee.toml` |
 | `markdownlint.yml` | Push, PR | markdownlint-cli2 | `.markdownlint-cli2.yaml` |
 | `spellcheck.yml` | Push, PR | cspell (incremental) | `.cspell.json` |
-| `dependabot.yml` | Weekly | GitHub Dependabot | `.github/dependabot.yml` |
+| `dependabot.yml`          | Weekly                          | GitHub Dependabot  | `.github/dependabot.yml` |
+| `claude.yml`              | Issues, PR comments (@claude)   | Claude Code Action | —                        |
+| `claude-code-review.yml`  | PR (opened/updated)             | Claude Code Action | —                        |
 
 - **links.yml** — checks all hyperlinks; creates a GitHub Issue when broken links are found on
   scheduled runs. The issue-creation step requires `GITHUB_TOKEN` and is skipped in local `act` runs.
@@ -101,6 +103,10 @@ Workflows live in `.github/workflows/`. Each runs on `ubuntu-latest`.
 - **spellcheck.yml** — spell-checks only changed files on push/PR (`incremental_files_only: true`);
   emits inline warnings without failing the build (`strict: false`).
 - **dependabot.yml** — weekly automated PRs to keep GitHub Actions versions up to date.
+- **claude.yml** — responds to `@claude` mentions in issues, issue comments, PR review comments,
+  and PR reviews; requires `ANTHROPIC_API_KEY` secret.
+- **claude-code-review.yml** — automatically runs a code review on every PR using the
+  `code-review` plugin; requires `ANTHROPIC_API_KEY` secret.
 
 ## File Organization
 
